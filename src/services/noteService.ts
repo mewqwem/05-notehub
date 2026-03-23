@@ -1,8 +1,12 @@
 import axios from "axios";
-import type { Note, NoteData, NotesResponse } from "../types/note";
+import type { Note, NoteData } from "../types/note";
 
-const NOTE_KEY = import.meta.env.VITE_NOTE_TOKEN;
+const NOTE_KEY = import.meta.env.VITE_NOTEHUB_TOKEN;
 
+interface NotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
 const notesInstance = axios.create({
   baseURL: "https://notehub-public.goit.study/api",
 });

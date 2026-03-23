@@ -1,12 +1,11 @@
 import css from "./SearchBox.module.css";
-import type { DebouncedState } from "use-debounce";
 
-interface SearchBookInputProps {
-  onSearch: DebouncedState<React.Dispatch<React.SetStateAction<string>>>;
+interface SearchBoxInputProps {
+  onSearch: (value: string) => void;
   value: string;
 }
 
-function SearchBox({ onSearch, value }: SearchBookInputProps) {
+function SearchBox({ onSearch, value }: SearchBoxInputProps) {
   return (
     <input
       className={css.input}

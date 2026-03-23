@@ -19,8 +19,6 @@ function Pagination({
   currentPage,
   onPageChange,
 }: PaginationProps) {
-  if (totalPages <= 1) return null;
-
   return (
     <>
       <Paginate

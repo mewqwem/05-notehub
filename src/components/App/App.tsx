@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import css from "./App.module.css";
 import { getNotes } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
@@ -20,6 +20,7 @@ function App() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["getNotes", searchValue, page],
     queryFn: () => getNotes(searchValue, page, perPage),
+    placeholderData: keepPreviousData,
   });
 
   const notes = data?.notes || [];
@@ -39,7 +40,10 @@ function App() {
     setIsOpen(false);
   };
 
-  const searchNote = useDebouncedCallback(setSearchValue, 500);
+  const searchNote = useDebouncedCallback((value: string) => {
+    setSearchValue(value);
+    setPage(1);
+  }, 500);
 
   return (
     <>
@@ -47,11 +51,13 @@ function App() {
         <header className={css.toolbar}>
           <SearchBox onSearch={searchNote} value={searchValue} />
 
-          <Pagination
-            totalPages={totalPages}
-            currentPage={page}
-            onPageChange={setPage}
-          />
+          {totalPages > 1 && (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={page}
+              onPageChange={setPage}
+            />
+          )}
 
           <button className={css.button} onClick={() => setIsOpen(true)}>
             Create note +
