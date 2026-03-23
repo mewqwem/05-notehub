@@ -1,11 +1,11 @@
 import css from "./SearchBox.module.css";
 
-interface SearchBoxInputProps {
+interface SearchBoxProps {
   onSearch: (value: string) => void;
   value: string;
 }
 
-function SearchBox({ onSearch, value }: SearchBoxInputProps) {
+function SearchBox({ onSearch, value }: SearchBoxProps) {
   return (
     <input
       className={css.input}
